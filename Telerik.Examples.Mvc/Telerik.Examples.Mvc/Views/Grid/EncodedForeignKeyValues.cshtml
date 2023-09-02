@@ -1,6 +1,7 @@
 ﻿
 <div class="row">
     <div class="col-12">
+
         @(Html.Kendo().Grid<ForeignKeyOrderViewModel>()
             .Name("grid")
             .Columns(columns =>
@@ -9,9 +10,16 @@
                 columns.Bound(p => p.Freight).Width(100);
                 columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}").Width(220);
                 columns.Bound(p => p.ShipName).Width(150);
-                columns.ForeignKey(p => p.ShipCityId, (System.Collections.IEnumerable)ViewData["cities"], "CityID", "CityName").Title("City").Width(400);
+
+                columns.ForeignKey(p => p.TaskID, ds => ds.Read(r => r.Action("List", "Tasks")), "TaskID", "Title")
+                                    .Title("To do").Width(200);
+
+                columns.ForeignKey(p => p.ShipCityId, 
+                                    (System.Collections.IEnumerable)ViewData["cities"], "CityID", "CityName")
+                                    .Title("City").Width(400);
                 columns.Command(c => c.Edit());
             })
+
             .Editable(editable => editable.Mode(GridEditMode.InLine))
             .Pageable()
             .Sortable()

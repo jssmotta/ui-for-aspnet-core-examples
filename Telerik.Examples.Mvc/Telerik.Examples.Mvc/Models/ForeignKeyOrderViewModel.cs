@@ -14,6 +14,12 @@ namespace Telerik.Examples.Mvc.Models
             set;
         }
 
+        public int TaskID
+        {
+            get;
+            set;
+        }
+
         public string CustomerID { get; set; }
 
         public decimal? Freight
